@@ -1,0 +1,14 @@
+#header-menu {
+    list-style-type: none;
+}
+
+#start-menu {
+    display: block;
+}
+#quiz-game {
+    display: none;
+}
+
+#submit-result {
+    display: none;
+}
