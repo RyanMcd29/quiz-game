@@ -36,6 +36,14 @@ h1 {
     font-size: 250%;
 }
 
+.answer {
+    background-color: #04b75b;;
+    border-radius: 5px;
+    display: block;
+    list-style-type: none;
+
+}
+
 p {
     
 }

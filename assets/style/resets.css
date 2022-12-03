@@ -5,10 +5,9 @@
 #start-menu {
     display: block;
 }
-#quiz-game {
-    display: none;
-}
-
-#submit-result {
+#quiz-game,
+#submit-result,
+#scoreboard
+ {
     display: none;
 }

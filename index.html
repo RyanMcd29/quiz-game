@@ -14,27 +14,38 @@
     <header>
         <ul id = "header-menu">
             <li>View Highscores</li>
-            <li class="timer"></li>
+            <li id="timer"></li>
         </ul>
     </header>
-
+<!-- Main Menu -->
     <section class = "game-window">
-        <section id="start-menu">
+        <article id = "start-menu">
             <h1>Coding Quiz Challenge</h1>
             <p>You will have 90 seconds from pressing start to complete this quiz</p>
-            <button>Start</button>
-        </section>
-        
-
-        <section id="quiz-game">
-            <div class="question"> </div>
-            <div class="answer"> </div>
-        </section>
-
-        <section id="submit-result">
+            <button id = "start-button">Start</button>
+        </article>
+<!-- Quiz -->  
+        <article id="quiz-game">
+            <div class="question">Question</div>
+            <div class="answer-choice">
+                <ul>
+                    <li class = "answer">Answer1</li>
+                    <li class = "answer">Answer2</li>
+                    <li class = "answer">Answer3</li>
+                    <li class = "answer">Answer4</li>
+                </ul>
+                <button class="submit">Submit Answer</button>
+            </div>
+        </article>
+<!-- Submit Menu -->
+        <article id="submit-result">
             <!-- Input box-->
-            <button class="submit-answer">Submit Answer</button>
-        </section>
+            <button class="submit-answer">Submit to scoreboard</button>
+        </article>
+<!-- Scoreboard -->
+        <article id="scoreboard">
+
+        </article>
     </section>
 
     <script src="./assets/js/script.js"></script>
