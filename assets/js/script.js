@@ -98,6 +98,8 @@ function startquiz () {
     loadQuestion ();
 }
 
+console.log(questions)
+
 var answerBtn = document.querySelectorAll('#answer-list button')
 console.log(answerBtn)
 // Event listeners
