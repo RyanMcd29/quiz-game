@@ -1,26 +1,36 @@
 // Saved questions
 
 var questions = [
+    
     {
-    question: "Who is deezus",
-    answer1: "nuttus",
-    answer2: "Meganut",
-    answer3: "crumb",
-    answer4: "rab",
+    question: "My name is:",
+    answer1: "Ben",
+    answer2: "Jacob",
+    answer3: "Ryan",
+    answer4: "Jim",
+    correctAns: "Ryan",
     },
 
-    {question: "Crab of the week",
-    answer1: "Me",
-    answer2: "You",
+    {
+    question: "My favourite food:",
+    answer1: "Chocolate",
+    answer2: "Icecream",
+    correctAns: "Icecream",
     }
 
 ]
 
+var randomNumber;
+var score = '0'
 
 // Start Button 
 var start = document.getElementById("start-button");
 var main = document.getElementById("start-menu");
 var quiz = document.getElementById("quiz-game");
+var timerEl = document.getElementById("timer");
+
+var secondsLeft = 90;
+timerEl.textContent = secondsLeft;
 
 
 // Start game
@@ -31,12 +41,15 @@ function hideMenu() {
 
 // Start timer
 function startTimer () {
-    var timerEl = document.getElementById("timer");
-    var secondsLeft = 90
     var timerInterval = setInterval(function(){
         secondsLeft --;
-        timerEl.textcontent = secondsLeft + "seconds remaining.";
+        timerEl.textcontent = secondsLeft;
     }, 1000);
+
+    if (timerInterval = 0) {
+        main.style.display = "none";
+        quiz.style.display = "none";
+    }
     };      
 
 //Write new questions
@@ -55,7 +68,7 @@ function loadQuestion () {
     ans4.textContent = ""
 
     // Load new question and answer set
-    var randomNumber = Math.floor(Math.random()*questions.length);
+    randomNumber = Math.floor(Math.random() * questions.length);
 
     //Write new question and answers
     q.textContent = questions[randomNumber].question;
@@ -64,29 +77,39 @@ function loadQuestion () {
     ans3.textContent = questions[randomNumber].answer3;
     ans4.textContent = questions[randomNumber].answer4;
 
-    // Remove question from array
-    delete questions[randomNumber]
+    // var answerBtn = document.querySelectorAll("#answer-list button")
 
-    }
+    return randomNumber;
+}
+
+// Answer question
+function answerQuestion (event) {
+    console.log(questions[randomNumber].correctAns);
+    var chosenAns = event.target().textContent;
+// Check Answer
+   if (chosenAns === questions[randomNumber].correctAns) {
+        score++
+   }
+}
+
 function startquiz () {
     hideMenu ();
     startTimer ();
     loadQuestion ();
-    
-    
 }
 
-start.addEventListener("click", startquiz);
+var answerBtn = document.querySelectorAll('#answer-list button')
+console.log(answerBtn)
+// Event listeners
+start.addEventListener('click', startquiz);
+answerBtn.addEventListener('click', answerQuestion);
+
+
+
 
 //Write new question
 
 
 // Submit Answer
-
-
-
-
-
-
 
 // Save score to scoreboard

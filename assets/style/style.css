@@ -4,12 +4,24 @@
 }
 
 header {
-    display: flex;
     justify-content: space-between;
-    min-height: 7vh;
+    flex-direction: row;
     background-color: #246644a3;
+    height: 7vh;
 }
 
+header ul {
+    position: relative;
+    top: 30%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    padding-right: 40px;
+}
+
+p {
+    display: inline;
+}
 .game-window {
     display: flex;
     justify-content: center;
@@ -31,6 +43,17 @@ header {
     color: white;
 }
 
+#answer-list {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    background-color: #01371b;
+    color: white;
+    border-radius: 10px;
+}
+
 h1 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 250%;
@@ -41,10 +64,6 @@ h1 {
     border-radius: 5px;
     display: block;
     list-style-type: none;
-}
-
-p {
-    
 }
 
 header ul li {
