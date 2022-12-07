@@ -44,8 +44,10 @@ var questions = [
     },
 ];
 
-// function saveQuestions () {
-//     var questions = [
+// function resetVariables () {
+//         secondsLeft = 90
+//         score = 0    
+//         questions = [
         
 //         {
 //             question: "My name is:",
@@ -94,7 +96,7 @@ var questions = [
 // }
 
 var randomNumber;
-var score = '0';
+var score = 0;
 var questionsAnswered = 0; 
 
 // Start Button 
@@ -115,6 +117,11 @@ var ansBtn4 = document.getElementById("answer4");
 // Timer
 var timerEl = document.getElementById("timer");
 
+// Scoreboard
+var dspScore = document.getElementById("scrHeading");
+var submitBtn = document.getElementById("submit-btn")
+var intlInput = document.getElementById("initials")
+
 // Start game
 function hideMenu() {
     main.style.display = "none";
@@ -132,7 +139,7 @@ return;
 }
 
 // Write new questions and answers
-function writequestion (randomNumber){
+function writequestion (){
 questionBox.textContent = questions[randomNumber].question;
 ansBtn1.textContent = questions[randomNumber].answer1;
 ansBtn2.textContent = questions[randomNumber].answer2;
@@ -145,6 +152,7 @@ return;
 function endGame() {
     main.style.display = "none";
     quiz.style.display = "none";
+    dspScore.textContent = "You scored: " + score;
     submitForm.style.display = "block";
 return;
 }
@@ -160,34 +168,32 @@ function startTimer () {
         secondsLeft--;
         timerEl.textcontent = secondsLeft;
 
-        if (timerInterval = 0) {
-            
+        if (secondsLeft = 0) {
+            endGame ();
+            clearInterval(timerInterval);
         }
-
     }, 1000);
 }
     
+// Update and Show Scoreboard ()
+showScrBoard () {
+    // Convert local storage to obj array
+    var usrScore = JSON.parse(localStorage.getItem("savedScore"));
+
+    // Set variables using for loop
+    for (var i = 0; i < usrScore.length; i++) {
+        scrBoardInt = usrScore[i].initials;
+        scrBoardScr = usrScore[i].score;
+        
+    }
+    // Append variables as li
+}
 
 //Write new questions
 function loadQuestion () {
-    // Clear questions and answers
-    // questionBox.textContent = ""
-    // ansBtn1.textContent = ""
-    // ansBtn2.textContent = ""
-    // ansBtn3.textContent = ""
-    // ansBtn4.textContent = ""
     clearQuestion ();
-    // Load new question and answer set
     randomNumber = Math.floor(Math.random() * questions.length);
-    writequestion (randomNumber);
-    //Write new question and answers
-    // questionBox.textContent = questions[randomNumber].question;
-    // ansBtn1.textContent = questions[randomNumber].answer1;
-    // ansBtn2.textContent = questions[randomNumber].answer2;
-    // ansBtn3.textContent = questions[randomNumber].answer3;
-    // ansBtn4.textContent = questions[randomNumber].answer4;
-
-    // var answerBtn = document.querySelectorAll("#answer-list button")
+    writequestion ();
     return randomNumber;
 }
 
@@ -203,24 +209,38 @@ function answerQuestion () {
    } else {
     timerEl.textContent = timerEl.textContent - 10;
    }
-
-   questionsAnswered++
+   console.log(score);
+   questionsAnswered++;
 
    // Remove Question From Pool
    questions.splice(randomNumber, 1);
-   console.log(questions)
+   console.log(questions);
 
    if (questionsAnswered < 5) {
     // Load next question
     loadQuestion ();
    } else {
     endGame();
-   }
-   // Remove question from pool
-
-   // Load next question
-
+   };
 }
+
+// Submit Score
+function submitScore (event) {
+    event.preventDefault();
+    var scrObj = {
+        initials: intlInput.value,
+        endScore: score,
+        }
+
+    const scrObjToString = JSON.stringify(scrObj);
+    localStorage.setItem("savedScore", scrObjToString);
+
+    console.log(localStorage)
+    showScrBoard ();
+    
+    return;
+    }
+
 
 function startquiz () {
     hideMenu ();
@@ -250,6 +270,7 @@ ansBtn1.addEventListener('click', answerQuestion);
 ansBtn2.addEventListener('click', answerQuestion);
 ansBtn3.addEventListener('click', answerQuestion);
 ansBtn4.addEventListener('click', answerQuestion);
+submitBtn.addEventListener('click', submitScore);
 
 // answerBtn.addEventListener('click', answerQuestion);
 
