@@ -1,3 +1,5 @@
+
+
 // Saved questions
 var questions = [
     {
@@ -121,6 +123,9 @@ var timerEl = document.getElementById("timer");
 var dspScore = document.getElementById("scrHeading");
 var submitBtn = document.getElementById("submit-btn")
 var intlInput = document.getElementById("initials")
+var scoreboard = document.getElementById("scoreboard")
+var scoreboardLi = document.getElementById("scoreboard-list")
+var index = 0;
 
 // Start game
 function hideMenu() {
@@ -176,17 +181,23 @@ function startTimer () {
 }
     
 // Update and Show Scoreboard ()
-showScrBoard () {
+function showScrBoard () {
+    main.style.display = "none";
+    quiz.style.display = "none";
+    submitForm.style.display = "none";
+    scoreboard.style.display = "block";
     // Convert local storage to obj array
     var usrScore = JSON.parse(localStorage.getItem("savedScore"));
-
+    console.log(usrScore)
     // Set variables using for loop
-    for (var i = 0; i < usrScore.length; i++) {
-        scrBoardInt = usrScore[i].initials;
-        scrBoardScr = usrScore[i].score;
-        
-    }
+    // for (var i = 0; i < usrScore.length; i++) {
+        var scrBoardInt = document.createElement("li");
+        scrBoardInt.textContent = usrScore.initials + usrScore.endScore;
+        console.log(scrBoardInt)
+        scoreboardLi.appendChild(scrBoardInt);
+    // };
     // Append variables as li
+    return;
 }
 
 //Write new questions
@@ -227,11 +238,13 @@ function answerQuestion () {
 // Submit Score
 function submitScore (event) {
     event.preventDefault();
+    index++
     var scrObj = {
+        scrI: index,
         initials: intlInput.value,
         endScore: score,
         }
-
+    
     const scrObjToString = JSON.stringify(scrObj);
     localStorage.setItem("savedScore", scrObjToString);
 
@@ -271,15 +284,3 @@ ansBtn2.addEventListener('click', answerQuestion);
 ansBtn3.addEventListener('click', answerQuestion);
 ansBtn4.addEventListener('click', answerQuestion);
 submitBtn.addEventListener('click', submitScore);
-
-// answerBtn.addEventListener('click', answerQuestion);
-
-
-
-
-//Write new question
-
-
-// Submit Answer
-
-// Save score to scoreboard
