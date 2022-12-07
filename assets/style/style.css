@@ -48,6 +48,14 @@ p {
     flex-direction: column;
 }
 
+/* #answer-list div {
+    display: inline;
+    color: white;
+    background-color: #01371b;
+    padding: 5px;
+    border-radius: 10px;
+} */
+
 button {
     background-color: #01371b;
     color: white;
