@@ -13,7 +13,7 @@
 <body>
     <header>
         <ul id = "header-menu">
-            <li>View Highscores</li>
+            <li id = "view-score">View Highscores</li>
             <li><span id = "timer"></span><p> seconds remaining.</p></li>
         </ul>
     </header>
@@ -44,7 +44,7 @@
             <h3 id="scrHeading"></h3>
             <!-- Input box-->
             <label for="intials">Initials</label>
-            <input id="initials" type="text" maxlength="3">
+            <input id="initials" type="text" minlength="1" maxlength="3">
             <button id="submit-btn">Submit to scoreboard</button>
         </form>
 <!-- Scoreboard -->
@@ -54,6 +54,7 @@
 
             </ol>
             <button id="play-again">Play Again</button>
+            <button id="clear-scores">Clear Scores</button>
         </article>
     </section>
 

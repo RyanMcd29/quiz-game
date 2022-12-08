@@ -1,12 +1,12 @@
-:root {
+/* :root {
     
     foreground: #3AA66E;
-}
+} */
 
 header {
     justify-content: space-between;
     flex-direction: row;
-    background-color: #246644a3;
+    background-color: #0092e7;
     height: 7vh;
 }
 
@@ -20,13 +20,37 @@ header ul {
 }
 
 p {
+    font-size: 120%;
     display: inline;
 }
+
+.start-menu p {
+    display: block;
+}
+
+#start-button{
+    display: block;
+    height: 50px;
+    width: 20%;
+    margin: 10%;
+    position: relative;
+    left: 30%
+}
+
 .game-window {
     display: flex;
     justify-content: center;
-    background-color: #246644;;
+    background-color: #006bde;
     height: 93vh;
+}
+
+#answer-result {
+    font-weight: bold;
+    font-size: 120%;
+    background-color: #e1f4ff;
+    padding: 5px;
+    border-radius: 3px;
+    display: none;
 }
 
 #start-menu,
@@ -36,10 +60,11 @@ p {
     position: relative;
     top: 10%;
     max-width: 800px;
+    min-width: 400px;
     padding: 60px;
     max-height: 70%;
     border-radius: 10px;
-    background-color: #3AA66E;
+    background-color: #004ca3;
     color: white;
 }
 
@@ -57,7 +82,8 @@ p {
 } */
 
 button {
-    background-color: #01371b;
+    font-size: 120%;
+    background-color: #005aba;
     color: white;
     border-radius: 10px;
 }
@@ -68,7 +94,7 @@ h1 {
 }
 
 .answer {
-    background-color: #04b75b;;
+    background-color: #0092e7;;
     border-radius: 5px;
     display: block;
     list-style-type: none;
@@ -80,6 +106,17 @@ header ul li {
     color: white;
     font-weight: bold;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#view-score:hover {
+    color: antiquewhite;
+    text-shadow: 2,2,2  black;
+}
+
+button:hover{
+    background-color: #0f288e;
+    color: white;
+    border-radius: 10px;
 }
  /* body {
     display: flex;

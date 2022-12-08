@@ -1,53 +1,8 @@
-// Saved questions
-// var questions = [
-//     {
-//         question: "My name is:",
-//         answer1: "Ben",
-//         answer2: "Jacob",
-//         answer3: "Ryan",
-//         answer4: "Jim",
-//         correctAns: "Ryan",
-//     },
-
-//     {
-//         question: "My favourite food:",
-//         answer1: "Chocolate",
-//         answer2: "Icecream",
-//         correctAns: "Icecream",
-//     },
-
-//     {
-//         question: "Mr fantastic:",
-//         answer1: "Deezus",
-//         answer2: "Nuttus",
-//         answer3: "Ryan",
-//         answer4: "Jim",
-//         correctAns: "Deezus",
-//     },
-
-//     {
-//         question: "Mr cool:",
-//         answer1: "my secretary",
-//         answer2: "bigdog",
-//         answer3: "Ryan",
-//         answer4: "Jim",
-//         correctAns: "bigdog",
-//     },
-
-//     {   
-//         question: "My name is:",
-//         answer1: "almomd",
-//         answer2: "Jacob",
-//         answer3: "kyre",
-//         answer4: "Jim",
-//         correctAns: "Ryan",
-//     },
-// ];
-
 var randomNumber;
 var score = 0;
 var questionsAnswered = 0; 
 var index = 0;
+var secondsLeft = 90;
 
 // Start Button 
 var start = document.getElementById("start-button");
@@ -68,6 +23,7 @@ var ansResultEl = document.getElementById("answer-result")
 
 // Timer
 var timerEl = document.getElementById("timer");
+var timerInterval
 
 // Scoreboard
 var dspScore = document.getElementById("scrHeading");
@@ -76,7 +32,9 @@ var intlInput = document.getElementById("initials")
 var scoreboard = document.getElementById("scoreboard")
 var scoreboardLi = document.getElementById("scoreboard-list")
 var restartBtn = document.getElementById("play-again");
+var viewScoreEl = document.getElementById("view-score")
 var index = 0;
+
 
 
 // Start game
@@ -118,26 +76,35 @@ function endGame() {
     quiz.style.display = "none";
     dspScore.textContent = "You scored: " + score;
     submitForm.style.display = "block";
-    timerEl.textContent = 0;
+    clearInterval(timerInterval);
+    secondsLeft = 0;
 return;
 }
 
-// Initialise Timer
-var secondsLeft = 90;
-timerEl.textContent = secondsLeft;
-
+function viewScoreboard() {
+    main.style.display = "none";
+    quiz.style.display = "none";
+    submitForm.style.display = "none";
+    scoreboard.style.display = "block";
+    clearInterval(timerInterval);
+return;
+}
 
 // Start timer
 function startTimer () {
-    var timerInterval = setInterval(function(){
-        secondsLeft--;
-        timerEl.textcontent = secondsLeft;
-
-        if (secondsLeft = 0) {
-            endGame ();
+    timerInterval = setInterval(function(){
+     
+        secondsLeft = secondsLeft -1 ;
+        timerEl.textContent = secondsLeft;
+         
+         if (secondsLeft <= 0) {
             clearInterval(timerInterval);
-        }
-    }, 1000);
+            endGame ();
+         } 
+
+    }, 1000)
+    
+    ;
 }
 
 // Update and Show Scoreboard ()
@@ -168,7 +135,7 @@ function loadQuestion () {
     writeQuestions ();
      for (var ansBtnIndex = 0;  ansBtnIndex < answerBtnEl.length; ansBtnIndex++){
        console.log(answerBtnEl[ansBtnIndex].textContent)
-        if (typeof answerBtnEl[ansBtnIndex].textContent == "string") {
+        if (answerBtnEl[ansBtnIndex].textContent !== "") {
             answerBtnEl[ansBtnIndex].style.display = "block"
         } else {
             answerBtnEl[ansBtnIndex].style.display = "none"
@@ -180,6 +147,11 @@ function loadQuestion () {
 
 function answerCheck (x) {
     ansResultEl.textContent = x;
+    if (x === "Correct"){
+        ansResultEl.style.color = "green"
+    } else {
+    ansResultEl.style.color = "red"
+    }
     ansResultEl.style.display = "block"
     var dspAnsReult = setInterval (function() {
         ansResultEl.style.display = "none";
@@ -214,11 +186,12 @@ function answerQuestion () {
     endGame();
    };
 }
-
+ 
 // Submit Score
 function submitScore (event) {
 
     event.preventDefault();
+    
     // var usrIndex = JSON.parse(localStorage.getItem("savedScore"));
     // var index = usrIndex[usrIndex.length].index;
     // console.log(index);
@@ -228,9 +201,8 @@ function submitScore (event) {
         initials: intlInput.value,
         endScore: score,
         }
-    
     const scrObjToString = JSON.stringify(scrObj);
-    localStorage.setItem("savedScore", scrObjToString);
+    localStorage.setItem("scrID", scrObjToString);
 
     console.log(localStorage)
     showScrBoard ();
@@ -238,15 +210,18 @@ function submitScore (event) {
     return;
     }
 
-
+// Reset Variables
 function restart () {
+    secondsLeft = 90;
     main.style.display = "block";
     quiz.style.display = "none";
     submitForm.style.display = "none";
     scoreboard.style.display = "none";
     questionsAnswered = 0;
-    secondsLeft = 90;
     score = 0;
+    // Initialise Timer
+    // secondsLeft = 90;
+    timerEl.textContent = secondsLeft;
     questions = [
     
     {
@@ -305,6 +280,8 @@ return;
 // Make each answer button a clickable element
 var answerBtn = document.querySelectorAll('#answer-list button')
 // console.log(answerBtn)
+
+// Initialise all variables and 
 restart ();
 // for (var i = 0; i < answerBtn.length; i++) {
 //    document.answerBtn.a
@@ -318,5 +295,7 @@ ansBtn3.addEventListener('click', answerQuestion);
 ansBtn4.addEventListener('click', answerQuestion);
 submitBtn.addEventListener('click', submitScore);
 restartBtn.addEventListener('click', restart);
+viewScoreEl.addEventListener('click', viewScoreboard);
+
 
 
