@@ -33,9 +33,13 @@ var scoreboard = document.getElementById("scoreboard")
 var scoreboardLi = document.getElementById("scoreboard-list")
 var restartBtn = document.getElementById("play-again");
 var viewScoreEl = document.getElementById("view-score")
+var clearBtn = document.getElementById("clear-scores");
+var newScore = [];
 var index = 0;
 
 
+// Load and render previous scores
+// console.log(savedScores)
 
 // Start game
 function hideMenu() {
@@ -113,15 +117,32 @@ function showScrBoard () {
     quiz.style.display = "none";
     submitForm.style.display = "none";
     scoreboard.style.display = "block";
+    
+    // Load from local storage
+    
+    console.log(savedScore)
+    var savedScore = JSON.parse(localStorage.getItem('oldScores'));
+    console.log(savedScore)
+
+    // if (savedScore !== null) {
+    newScore.push(savedScore)
+    // savedScore.push(newScore)
+    // }
+   localStorage.setItem('oldScores',JSON.stringify(newScore));
+
+    for (var i = 0; i < newScore.length; i++ ) {
+        var scrBoardInt = document.createElement("li");
+        scrBoardInt.textContent = "Initials: " + newScore[i].initials + " Score: " + newScore[i].endScore;
+        scoreboardLi.appendChild(scrBoardInt);
+    }
     // Convert local storage to obj array
-    var usrScore = JSON.parse(localStorage.getItem("savedScore"));
-    console.log(usrScore)
+    
     // Set variables using for loop
     // for (var i = 0; i < usrScore.length; i++) {
-        var scrBoardInt = document.createElement("li");
-        scrBoardInt.textContent = "Initials: " + usrScore.initials + " Score: " + usrScore.endScore;
-        console.log(scrBoardInt);
-        scoreboardLi.appendChild(scrBoardInt);
+        // var scrBoardInt = document.createElement("li");
+        // scrBoardInt.textContent = "Initials: " + usrScore.initials + " Score: " + usrScore.endScore;
+        // console.log(scrBoardInt);
+        // scoreboardLi.appendChild(scrBoardInt);
     // };
     // Append variables as li
     return;
@@ -195,18 +216,11 @@ function submitScore (event) {
     // var usrIndex = JSON.parse(localStorage.getItem("savedScore"));
     // var index = usrIndex[usrIndex.length].index;
     // console.log(index);
-    index++
-    var scrObj = {
-        scrID: index,
+    newScore = [{
         initials: intlInput.value,
         endScore: score,
-        }
-    const scrObjToString = JSON.stringify(scrObj);
-    localStorage.setItem("scrID", scrObjToString);
-
-    console.log(localStorage)
-    showScrBoard ();
-    
+        }];
+    showScrBoard()
     return;
     }
 
@@ -269,6 +283,14 @@ function restart () {
     return;
 }
 
+function clearLocalStorage () {
+localStorage.clear();
+newScore = [];
+showScrBoard ();
+
+return
+}
+
 function startquiz () {
     hideMenu ();
     startTimer ();
@@ -296,6 +318,7 @@ ansBtn4.addEventListener('click', answerQuestion);
 submitBtn.addEventListener('click', submitScore);
 restartBtn.addEventListener('click', restart);
 viewScoreEl.addEventListener('click', viewScoreboard);
+clearBtn.addEventListener('click', clearLocalStorage)
 
 
 
